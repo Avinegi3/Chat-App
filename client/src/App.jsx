@@ -32,8 +32,7 @@ const App=()=>{
     })
 
     socket.on('user-left',(data)=>{
-      data = `User - ${data} left`
-      
+      data = `User - ${socket.id} left`
       setMessages((messages)=>[...messages,data])
     })
 
