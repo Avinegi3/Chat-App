@@ -11,8 +11,8 @@ const App=()=>{
   const [messages,setMessages] = useState([])
   const [roomName,setRoomName] = useState([])
 
-  const socket = useMemo(()=>io('https://chat-app-backend-3no7.onrender.com/'),[])
-  console.log(">>>>>>>messages",messages);
+  const socket = useMemo(()=>io('https://chat-app-backend-3no7.onrender.com/'),[])//https://chat-app-backend-3no7.onrender.com/
+ 
   
   useEffect(() => {
     socket.on('connect',()=>{
@@ -28,6 +28,12 @@ const App=()=>{
     })
 
     socket.on('message-received',(data)=>{
+      setMessages((messages)=>[...messages,data])
+    })
+
+    socket.on('user-left',(data)=>{
+      data = `User - ${data} left`
+      
       setMessages((messages)=>[...messages,data])
     })
 
@@ -53,7 +59,7 @@ const App=()=>{
 
   const leaveRoom=(e)=>{
     e.preventDefault()
-    socket.disconnect()
+    socket.emit("leave-room",roomName)
   }
   
   return (
@@ -100,7 +106,7 @@ const App=()=>{
         <Card key={i} variant="outlined">
             <CardContent>
                 <Typography variant='h6'>
-                    User reply - {m}
+                  {m}
                 </Typography>
             </CardContent>
         </Card>
