@@ -11,8 +11,8 @@ const App=()=>{
   const [messages,setMessages] = useState([])
   const [roomName,setRoomName] = useState([])
 
-  const socket = useMemo(()=>io('https://chat-app-backend-3no7.onrender.com/'),[])//https://chat-app-backend-3no7.onrender.com/
- 
+  const socket = useMemo(()=>io('http://localhost:3000'),[])//https://chat-app-backend-3no7.onrender.com/
+  console.log(">>>>>>>messages",messages);
   
   useEffect(() => {
     socket.on('connect',()=>{
@@ -32,7 +32,9 @@ const App=()=>{
     })
 
     socket.on('user-left',(data)=>{
-      data = `User - ${socket.id} left`
+      console.log(">>>>socket",data);
+      data = `User - ${data} left`
+      
       setMessages((messages)=>[...messages,data])
     })
 
@@ -58,7 +60,7 @@ const App=()=>{
 
   const leaveRoom=(e)=>{
     e.preventDefault()
-    socket.emit("leave-room",roomName)
+    socket.emit("leave-room",{roomName,socketId})
   }
   
   return (
