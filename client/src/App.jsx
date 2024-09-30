@@ -11,7 +11,7 @@ const App=()=>{
   const [messages,setMessages] = useState([])
   const [roomName,setRoomName] = useState([])
 
-  const socket = useMemo(()=>io('http://localhost:3000'),[])//https://chat-app-backend-3no7.onrender.com/
+  const socket = useMemo(()=>io('//https://chat-app-backend-3no7.onrender.com/'),[])//https://chat-app-backend-3no7.onrender.com/
   console.log(">>>>>>>messages",messages);
   
   useEffect(() => {
