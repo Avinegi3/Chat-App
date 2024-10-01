@@ -38,6 +38,11 @@ const App=()=>{
       setMessages((messages)=>[...messages,data])
     })
 
+    socket.on("user-joined",()=>{
+      let data = `User - ${socket.id} Joined`
+      setMessages((messages)=>[...messages,data])
+    })
+
     console.log("received-----",messages);
     return()=>{
       socket.disconnect()
